@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixel_perfect/pixel_perfect.dart';
 
 void main() {
   runApp(RealState());
@@ -8,25 +9,175 @@ class RealState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.blue,
         textTheme: TextTheme(
           headline3: TextStyle(
               fontSize: 46, fontWeight: FontWeight.bold, color: Colors.black),
           headline5: TextStyle(
               fontSize: 26, fontWeight: FontWeight.bold, color: Colors.black),
           headline6: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w300, color: Colors.black),
+              fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
+          subtitle1: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              letterSpacing: -1),
         ),
       ),
-      home: HomeScreen(),
+      home: Home(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PixelPerfect(
+      assetPath: 'assets/Home.jpg',
+      scale: 375 / MediaQuery.of(context).size.width,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              TopBar(),
+              SearchBar(),
+              Row(
+                children: [
+                  SizedBox(width: 35),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    color: Colors.blue,
+                    child: Container(
+                      height: 300,
+                      width: 285,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Container(
+                              color: Colors.red,
+                              width: 260,
+                              height: 180,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 32),
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Container(
+          height: 55,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: TextField(
+              decoration: InputDecoration(
+                suffixIcon: Icon(Icons.tune),
+                hintText: 'Search residence',
+                border: InputBorder.none,
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: -0.6,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TopBar extends StatelessWidget {
+  const TopBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 35.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Location',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_pin,
+                      color: Colors.blue,
+                      size: 16,
+                    ),
+                    SizedBox(width: 3),
+                    Text(
+                      'Surabaya, East Java',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Image.asset(
+              'assets/Profile.jpg',
+              width: 50,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StartScreen extends StatelessWidget {
+  const StartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
